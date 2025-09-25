@@ -55,12 +55,15 @@ ZSH_THEME="vercel"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+# Configure zsh-ai to use Ollama (must be before plugin loading)
+export ZSH_AI_PROVIDER="ollama"
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git archlinux)
+plugins=(sudo git archlinux zsh-ai)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -239,3 +242,8 @@ figlet -f Sub-Zero TRVS | lolcat
 
 # Added by betterfetch installer
 export PATH="/home/trvs/.cargo/bin:$PATH"
+
+# AI Configuration
+# zsh-ai is configured to use Ollama for local models
+# To use Anthropic instead, set: export ANTHROPIC_API_KEY="your-key-here"
+# To use different Ollama model: export ZSH_AI_OLLAMA_MODEL="llama3.2"
