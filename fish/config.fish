@@ -170,3 +170,7 @@ set fish_greeting
 
 # Custom completions
 complete -c extract -a "(__fish_complete_suffix .tar.bz2 .tar.gz .bz2 .rar .gz .tar .tbz2 .tgz .zip .Z .7z)"
+# Source additional aliases
+if test -f ~/.config/fish/aliases.fish
+    source ~/.config/fish/aliases.fish
+end
