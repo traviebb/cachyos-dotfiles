@@ -95,6 +95,13 @@ main() {
         print_warning "Run: git config --global user.email 'your.email@example.com'"
     fi
     
+    # Zsh configuration
+    if [ -f "$DOTFILES_DIR/zsh/zshrc" ]; then
+        print_status "Installing Zsh configuration..."
+        backup_file "$HOME/.zshrc"
+        create_symlink "$DOTFILES_DIR/zsh/zshrc" "$HOME/.zshrc"
+    fi
+    
     # Starship configuration
     if [ -f "$DOTFILES_DIR/starship/starship.toml" ]; then
         print_status "Installing Starship configuration..."
@@ -118,13 +125,44 @@ main() {
     
     print_success "Dotfiles installation completed!"
     print_status "Backup files are stored in $BACKUP_DIR"
-    print_status "Please restart your shell or run: source ~/.config/fish/config.fish"
+    print_status "Please restart your shell or reload your config:"
+    print_status "  Fish: source ~/.config/fish/config.fish"
+    print_status "  Zsh:  source ~/.zshrc"
     
     # Check if we need to install fish
     if ! command -v fish >/dev/null 2>&1; then
         print_warning "Fish shell is not installed. Install it with:"
         print_warning "sudo pacman -S fish"
         print_warning "Then set it as default: chsh -s /usr/bin/fish"
+    fi
+    
+    # Check if we need to install zsh
+    if ! command -v zsh >/dev/null 2>&1; then
+        print_warning "Zsh shell is not installed. Install it with:"
+        print_warning "sudo pacman -S zsh"
+        print_warning "Then set it as default: chsh -s /usr/bin/zsh"
+    fi
+    
+    # Check if we need to install Oh My Zsh (for zsh users)
+    if command -v zsh >/dev/null 2>&1 && [ ! -d "$HOME/.oh-my-zsh" ]; then
+        print_warning "Oh My Zsh is not installed. Install it with:"
+        print_warning "sh -c '\$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)'"
+    fi
+    
+    # Check if we need to install zsh plugins
+    if command -v zsh >/dev/null 2>&1; then
+        if ! pacman -Qs zsh-autosuggestions >/dev/null 2>&1; then
+            print_warning "zsh-autosuggestions is not installed. Install it with:"
+            print_warning "sudo pacman -S zsh-autosuggestions"
+        fi
+        if ! pacman -Qs zsh-syntax-highlighting >/dev/null 2>&1; then
+            print_warning "zsh-syntax-highlighting is not installed. Install it with:"
+            print_warning "sudo pacman -S zsh-syntax-highlighting"
+        fi
+        if ! pacman -Qs spaceship-prompt >/dev/null 2>&1; then
+            print_warning "spaceship-prompt is not installed. Install it with:"
+            print_warning "sudo pacman -S spaceship-prompt"
+        fi
     fi
     
     # Check if we need to install starship

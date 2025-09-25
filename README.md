@@ -1,6 +1,6 @@
 # Dotfiles
 
-Personal dotfiles for CachyOS Linux with fish shell and Hyprland.
+Personal dotfiles for CachyOS Linux with fish shell, zsh shell, and Hyprland.
 
 ## Installation
 
@@ -12,6 +12,7 @@ cd ~/.dotfiles
 ## Structure
 
 - `fish/` - Fish shell configuration
+- `zsh/` - Zsh shell configuration
 - `git/` - Git configuration 
 - `starship/` - Starship prompt configuration
 - `hypr/` - Hyprland configuration
@@ -25,6 +26,12 @@ cd ~/.dotfiles
 - Environment variables
 - Auto-completion enhancements
 - Custom prompt integration
+
+### Zsh Shell
+- Oh My Zsh integration
+- Spaceship prompt theme
+- Syntax highlighting and autosuggestions
+- Same aliases and functions as fish
 
 ### Git
 - Useful aliases
