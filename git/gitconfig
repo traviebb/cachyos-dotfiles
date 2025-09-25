@@ -1,0 +1,129 @@
+[user]
+	name = Your Name
+	email = your.email@example.com
+
+[core]
+	editor = micro
+	autocrlf = input
+	safecrlf = true
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+
+[diff]
+	tool = vimdiff
+	colorMoved = default
+
+[color]
+	ui = auto
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[alias]
+	# Basic aliases
+	a = add
+	aa = add --all
+	ap = add --patch
+	b = branch
+	ba = branch -a
+	bd = branch -d
+	bD = branch -D
+	c = commit
+	ca = commit -a
+	cam = commit -am
+	cm = commit -m
+	co = checkout
+	cob = checkout -b
+	cp = cherry-pick
+	d = diff
+	ds = diff --staged
+	dt = difftool
+	f = fetch
+	fa = fetch --all
+	m = merge
+	p = push
+	pf = push --force-with-lease
+	pl = pull
+	r = reset
+	rh = reset --hard
+	rs = reset --soft
+	s = status
+	sb = status -sb
+	st = stash
+	stp = stash pop
+	sw = switch
+	swc = switch -c
+
+	# Log aliases
+	l = log --oneline
+	lg = log --oneline --graph --decorate
+	lga = log --oneline --graph --decorate --all
+	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+	
+	# Show aliases
+	aliases = config --get-regexp alias
+	remotes = remote -v
+	tags = tag -l
+	branches = branch -a
+	contributors = shortlog --summary --numbered
+
+	# Useful shortcuts
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	visual = !gitk
+	uncommit = reset --soft HEAD~1
+	recommit = commit --amend --no-edit
+	precommit = diff --cached --diff-algorithm=minimal -w
+	
+	# Find stuff
+	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+	
+	# Workflow shortcuts
+	wip = commit -am "WIP"
+	unwip = reset HEAD~1
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	
+	# Cleanup
+	cleanup = "!git branch --merged | grep -v '\\*\\|master\\|main\\|develop' | xargs -n 1 git branch -d"
+	prune-all = !git remote | xargs -n 1 git remote prune
+
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
