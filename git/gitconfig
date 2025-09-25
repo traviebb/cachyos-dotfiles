@@ -1,6 +1,6 @@
 [user]
-	name = Your Name
-	email = your.email@example.com
+	name = Trav
+	email = travischasehunt@yahoo.com
 
 [core]
 	editor = micro
@@ -127,3 +127,8 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
